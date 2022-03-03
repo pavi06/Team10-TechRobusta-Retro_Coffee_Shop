@@ -11,7 +11,7 @@ public class Bill {
 	
 	public static void BillRecipt(String customerName,String phno,List<Map<String,Double>> orderedItems,float totalCost) {		
 		
-		System.out.println("\n\n---------Bill Receipt--------------");
+		System.out.println("\n\n---------Bill Receipt-------------");
 		System.out.println("       RetroCoffee Shop       ");
 		System.out.println("       contact : 9876543210        ");
 		System.out.println("-----------------------------------");
