@@ -1,5 +1,8 @@
 package com.retro.shop;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +23,37 @@ public class Bill {
 	System.out.println("         THANK YOU          ");
 	System.out.println("         VISIT AGAIN         ");
 	}
+public static void addRewards(String customerName,String phno,float totalCost)throws Exception{
+	Class.forName("oracle.jdbc.driver.OracleDriver"); //("com.mysql.jdbc.Driver");
+	
+	String url="jdbc:oracle:thin:@localhost:1521:xe";//"jdbc:mysql://localhost:3306/Retroshop";
+	String uname="hr"; 
+	String pass="roke";
+	Connection con=null;
+	PreparedStatement pstmt=null;
+	ResultSet rst = null;
+	int flag=0;
+	
+	String query="insert into retro_shop_customer"
+	+"values(seq1.nextval,?,?,?,?)";
+	try {
+		con=DriverManager.getConnection(url,uname,pass); 
+		pstmt=con.prepareStatement(query);
+		pstmt.setString(1, customerName);
+		pstmt.setString(2, phno); 
+		float pts=(totalCost/100)*10;
+		pstmt.setFloat(3, pts); 
+		//pstmt=con.preparedStatement(query);
+		flag=pstmt.executeUpdate();
+		pstmt.close();
+		con.close();
+		
+	}catch(Exception exec) {
+		exec.printStackTrace();
+	}
+	
+}
+}
 	
 //public static void main(String[] args) {
 //        
