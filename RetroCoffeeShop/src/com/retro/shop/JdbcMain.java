@@ -72,4 +72,47 @@ public class JdbcMain {
 		return flag>0 ? true:false;
 	}
 	
+	public static void addRewards(String cust_name,String cust_phno,float totalCost){
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} //("com.mysql.jdbc.Driver");
+		
+		String url="jdbc:oracle:thin:@localhost:1521:xe";//"jdbc:mysql://localhost:3306/Retroshop";
+		String uname="hr"; 
+		String pass="roke";
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rst = null;
+		int flag=0;
+		int pts=0;
+		
+		String query1="insert into retro_shop_customer (cust_id,cust_name,cust_phno,cust_pts)"
+		+"values(seq2.nextval,?,?,?)";
+		try {
+			con=DriverManager.getConnection(url,uname,pass); 
+			pstmt=con.prepareStatement(query1);
+			pstmt.setString(1, cust_name);
+			pstmt.setString(2, cust_phno);
+			if(totalCost>=100) {
+				pts=((int)totalCost/100)*10;
+			}
+			pstmt.setInt(3, pts); 
+			flag=pstmt.executeUpdate();
+			pstmt.close();
+			con.close();
+			
+		}catch(Exception exec) {
+			exec.printStackTrace();
+		}
+		
+		if(flag>0 && totalCost>=100) {
+			System.out.println();
+			System.out.println((int)pts+" Reward points awarded to the customer!");
+		}
+		
+	}
+
+	
 }
