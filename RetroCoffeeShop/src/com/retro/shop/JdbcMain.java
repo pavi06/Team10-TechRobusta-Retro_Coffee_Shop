@@ -3,7 +3,6 @@ package com.retro.shop;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class JdbcMain {
 
@@ -61,6 +60,7 @@ public class JdbcMain {
 		     pstmt.setString(2,phno);
 		     pstmt.setString(3,orderItemsCodeList);
 		     pstmt.setFloat(4,totalCost);
+		     //pstmt.setString(5, );
 	         //pstmt = con.prepareStatement(query);
 	         flag=pstmt.executeUpdate();
 	         pstmt.close();
@@ -71,5 +71,5 @@ public class JdbcMain {
 		
 		return flag>0 ? true:false;
 	}
-
+	
 }

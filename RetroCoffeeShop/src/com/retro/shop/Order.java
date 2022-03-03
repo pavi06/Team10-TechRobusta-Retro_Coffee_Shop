@@ -1,43 +1,34 @@
 package com.retro.shop;
 
 import java.util.*;
-import java.sql.*;
 
-public class Order {
+public class Order{
 	
-	public static void main(String[] args) throws Exception {
-		Scanner sc = new Scanner(System.in);
-		Map<Integer,Map<String,Double>> items = JdbcMain.getMenu();
-		
-		System.out.println("Enter your name: ");
-		String name = sc.nextLine();
-		
-		System.out.println("Enter your Mobilenumber: ");
-		String phno = sc.nextLine();
-		
-		System.out.println("       RetroCoffee Shop Menu       ");
-		System.out.println("-----------------------------------");
-		System.out.println("ItemNo\tName\t\tPrice");
-		for(Map.Entry<Integer,Map<String,Double>> i : items.entrySet()) {
-			System.out.print(i.getKey()+"\t");
-			for(Map.Entry<String,Double> j:i.getValue().entrySet()) {
-				System.out.println(j.getKey()+"\t"+j.getValue());				
-			}
+	public static void placeOrder() {
+		//getting items from database
+		Map<Integer, Map<String, Double>> items=new HashMap<>();
+		try {
+			items = JdbcMain.getMenu();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		
+		Scanner sc1 = new Scanner(System.in);
+		System.out.println("Enter customer name: ");
+		String name = sc1.nextLine();
+		System.out.println("Enter customer mobile no: ");
+		String phno = sc1.nextLine();
+		
 		char c;
-		ArrayList<Integer> iList = new ArrayList<Integer>();
-		
+		List<Integer> iList = new ArrayList<>();
 		do {
-			System.out.println("Enter the Item what you what(specify the number): ");
-			int ch=sc.nextInt();
+			System.out.println("Enter the Item what you want(specify the item no):");
+			int ch=sc1.nextInt();
 			iList.add(ch);
-			 
-			System.out.println("Would you like to order more(Y/N) : ");
-			c = sc.next().charAt(0);
-		}while(c =='Y');
+			System.out.println("Would you like to order more(Y/N) :");
+			c = sc1.next().charAt(0);
+		}while(c =='Y'||c=='y');
 		
-		sc.close();
 		
 		//iterating through selected items to find totalCost
 		float totalCost=0.0f;
@@ -50,16 +41,19 @@ public class Order {
 				orderedItems.add(item);
 			}
 		}
-				
-		boolean flag=JdbcMain.addOrder(name, phno,iList.toString(),totalCost);
+		
+		boolean flag=false;
+		try {
+			flag = JdbcMain.addOrder(name, phno,iList.toString(),totalCost);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		if(flag) {
-       	 System.out.println("Order placed successfully!");
-       	 Bill.BillRecipt(name,orderedItems,totalCost);
+       	 System.out.println("Order placed successfully!.");
+       	 Bill.BillRecipt(name,phno,orderedItems,totalCost);
         }else {
        	 System.out.println("Error in placing order!!Try again.");
         }
-		
 	}
-
 }
