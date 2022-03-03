@@ -19,7 +19,8 @@ public class JdbcMain {
 	         con = DriverManager.getConnection(url, uname, pass);
 	         pstmt = con.prepareStatement(query);
 	         rst = pstmt.executeQuery();
-	         System.out.println("Id\tName\tPrice\n");
+	         System.out.println("\n-------RetroCoffeeShop-------\n\n");
+	         System.out.println("Id\tName\t\tPrice\n");
 	         while(rst.next()) {
 	            System.out.print(rst.getInt(1));
 	            System.out.print("\t"+rst.getString(2));
