@@ -140,7 +140,7 @@ public class JdbcMain {
 			rst=pstmt.executeQuery();
 			while(rst.next()) {
 				System.out.println("-----TODAY'S REPORT ANALYSIS-----");
-				System.out.println("\nTOTAL SALES :- "+rst.getFloat(1));
+				System.out.println("\nTOTAL SALES :- Rs "+rst.getFloat(1));
 				System.out.println("----------------------------------");
 				}
 			pstmt.close();
