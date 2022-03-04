@@ -16,14 +16,14 @@ public class Bill {
 		int count=0;
 		for(Map<String,Double> j:orderedItems) {
 			for(Map.Entry<String,Double> i:j.entrySet()) {
-				System.out.format("%8d%15s%10s",++count,i.getKey(),i.getValue().toString());
+				System.out.format("%8d%15s%10s",++count,i.getKey(),"Rs"+i.getValue().toString());
 				System.out.println();
 				//System.out.println(++count+"\t"+i.getKey()+"\t"i.getValue());
 			}
 		}
 
 		System.out.println();
-		System.out.format("%23s%10s","Total Amount:",Float.toString(totalCost));
+		System.out.format("%23s%10s","Total Amount:","Rs"+Float.toString(totalCost));
 		System.out.println();
 		JdbcMain.addRewards(customerName, phno, totalCost);
 		System.out.println("\n-----------------------------------");

@@ -115,7 +115,38 @@ public class JdbcMain {
 			System.out.println((int)pts+" Reward points awarded to the customer!");
 		}
 		
+		
 	}
 	
-	
+	public static void report(){
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} //("com.mysql.jdbc.Driver");
+		
+		String url="jdbc:oracle:thin:@localhost:1521:xe";//"jdbc:mysql://localhost:3306/Retroshop";
+		String uname="hr"; 
+		String pass="roke";
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rst = null;
+		
+		String query2="Select SUM(Total_cost) from retro_shop_orders where order_date=?";
+		try {
+			con=DriverManager.getConnection(url,uname,pass); 
+			pstmt=con.prepareStatement(query2);
+			pstmt.setString(1, LocalDate.now().toString());
+			rst=pstmt.executeQuery();
+			while(rst.next()) {
+				System.out.println("-----TODAY'S REPORT ANALYSIS-----");
+				System.out.println("\nTOTAL SALES :- "+rst.getFloat(1));
+				System.out.println("----------------------------------");
+				}
+			pstmt.close();
+			con.close();		
+			}catch(Exception exec){
+			exec.printStackTrace();
+		}	
+	}
 }

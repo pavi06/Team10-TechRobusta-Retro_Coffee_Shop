@@ -12,12 +12,12 @@ public class Main {
 			items = JdbcMain.getMenu();
 			System.out.println("       RetroCoffee Shop Menu       ");
 			System.out.println("-----------------------------------");
-			System.out.format("%8s%15s%10s","ItemNo","Name","Price");
+			System.out.format("%8s%15s%12s","ItemNo","Name","Price(Rs)");
 			System.out.println();
 			for(Map.Entry<Integer,Map<String,Double>> i : items.entrySet()) {
 				System.out.format("%8d",i.getKey());
 				for(Map.Entry<String,Double> j:i.getValue().entrySet()) {
-					System.out.format("%15s%10s",j.getKey(),j.getValue().toString());
+					System.out.format("%15s%12s",j.getKey(),j.getValue().toString());
 					System.out.println();				
 				}
 			}
@@ -44,17 +44,19 @@ public class Main {
 				break;
 			case '3':
 				try {
-//					JdbcMain.reports();
+					JdbcMain.report();
 				} catch (Exception e) {
 					System.out.println("Error in displaying the reports!");
 					e.printStackTrace();
 				}
 				break;
+			case '4':
+				break;
 			default:
 				System.out.println("Enter a valid choice!");
 				break;
 			}
-		}while(ch!='3');
+		}while(ch!='4');
 		System.out.println("Thank you for visiting RetroCoffee Shop!");
 	}
 
