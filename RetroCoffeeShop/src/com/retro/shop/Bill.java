@@ -6,8 +6,19 @@ import java.util.Map;
 public class Bill {
 	
 	public static void BillRecipt(String customerName, List<Map<String,Double>> orderedItems,float totalCost) {
+		System.out.println("       RetroCoffee Shop Menu       ");
+		System.out.println("       contact : 9876543210        ");
 		
-		
+		System.out.println("-----------------------------------");
+		System.out.println("ItemNo\tName\t\t Price");
+			for(Map.Entry<String,Double> j:orderedItems.entrySet()) {
+				System.out.println(j.getKey()+"\t"+j.getValue());				
+			}
+		}
+	System.out.println("Total Amount:"\t\t+j.getValue());
+	System.out.println("-----------------------------------");
+	System.out.println("         THANK YOU          ");
+	System.out.println("         VISIT AGAIN         ");
 	}
 	
 //public static void main(String[] args) {
