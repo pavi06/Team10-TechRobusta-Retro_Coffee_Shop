@@ -150,3 +150,72 @@ public class JdbcMain {
 		}	
 	}
 }
+
+public static void itemreport() {
+	
+	try {
+		Class.forName("oracle.jdbc.driver.OracleDriver");
+	} catch (ClassNotFoundException e) {
+		e.printStackTrace();
+	} //("com.mysql.jdbc.Driver");
+	
+	String url="jdbc:oracle:thin:@localhost:1521:xe"; //"jdbc:mysql://localhost:3306/Retroshop";
+	String uname="hr";
+	String pass="roke";
+	Connection con = null;
+    PreparedStatement pstmt = null;
+    ResultSet rst = null;
+    
+    String query3="Select Order_Items_code_list from retro_shop_orders";
+    String str="";
+    
+	try {
+		con=DriverManager.getConnection(url,uname,pass);
+		pstmt=con.prepareStatement(query3);
+		rst=pstmt.executeQuery();
+		while(rst.next()) { 
+			str+=rst.getString(1);				
+		}
+		
+		Map<Character, Integer> map = new HashMap<Character, Integer>();
+		for (int i = 0; i < str.length(); i++) {
+		    char c = str.charAt(i);
+		    Integer val = map.get(c);
+		    if((c!='[') && (c!=']') && (c!=',') && (c!=' ')) {
+		    	if (val != null) {
+			        map.put(c, (val + 1));
+			    }
+			    else {
+			    	map.put(c,1);
+			   }
+			}  
+		}
+			
+		Map<Integer, Map<String, Double>> items;
+		Map<String, Double> itemDetail;
+		try {
+			items = JdbcMain.getMenu();
+			System.out.println("\n   PRODUCT WISE SALES REPORT   ");
+			System.out.println("-----------------------------------");
+			System.out.format("%8s%15s%18s%12s","ItemNo","Name","Quantity","Amount(Rs)");
+			System.out.println();
+			for(Map.Entry<Character, Integer> m: map.entrySet()) {
+				Integer key=m.getKey()-48;
+				itemDetail=items.get(key);
+				System.out.format("%8s",m.getKey());
+				for(Map.Entry<String,Double> j:itemDetail.entrySet()) {
+					System.out.format("%15s%18s%12s",j.getKey(),m.getValue().toString(),
+							Float.toString((float)(j.getValue()*m.getValue())));
+					System.out.println();				
+				}
+			}
+		} catch (Exception e) {
+			System.out.println("Error in loading Menu!!");
+		}
+		
+		pstmt.close();
+		con.close();
+	}catch(Exception exec){
+		exec.printStackTrace();
+	}
+}
