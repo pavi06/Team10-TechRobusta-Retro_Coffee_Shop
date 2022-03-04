@@ -4,8 +4,12 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
 public class JdbcMain {
 
@@ -141,6 +145,7 @@ public class JdbcMain {
 			while(rst.next()) {
 				System.out.println("-----TODAY'S REPORT ANALYSIS-----");
 				System.out.println("\nTOTAL SALES :- Rs "+rst.getFloat(1));
+				itemreport();
 				System.out.println("----------------------------------");
 				}
 			pstmt.close();
@@ -149,4 +154,6 @@ public class JdbcMain {
 			exec.printStackTrace();
 		}	
 	}
+	
+	
 }
