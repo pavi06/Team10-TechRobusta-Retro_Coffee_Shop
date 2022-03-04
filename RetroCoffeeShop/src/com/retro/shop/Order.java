@@ -29,7 +29,6 @@ public class Order{
 			c = sc1.next().charAt(0);
 		}while(c =='Y'||c=='y');
 		
-		
 		//iterating through selected items to find totalCost
 		float totalCost=0.0f;
 		List<Map<String,Double>> orderedItems=new ArrayList<>();
