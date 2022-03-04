@@ -27,8 +27,9 @@ public class Main {
 	}  
 
 	public static void main(String[] args) {
+		
 		System.out.println("Welcome to Retro Coffee Shop");
-		System.out.println("----MainMenu----\n1.Show Menu\n2.Order Entry\n3.Exit");
+		System.out.println("----MainMenu----\n1.Show Menu\n2.Order Entry\n3.DailySalesReport\n4.Exit");
 		char ch,c;
 		Scanner sc = new Scanner(System.in);
 		do {
@@ -42,7 +43,12 @@ public class Main {
 				Order.placeOrder();
 				break;
 			case '3':
-				//exit
+				try {
+//					JdbcMain.reports();
+				} catch (Exception e) {
+					System.out.println("Error in displaying the reports!");
+					e.printStackTrace();
+				}
 				break;
 			default:
 				System.out.println("Enter a valid choice!");
