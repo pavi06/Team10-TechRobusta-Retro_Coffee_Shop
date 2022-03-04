@@ -1,5 +1,6 @@
 package com.retro.shop;
 
+import java.time.LocalDate;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -47,8 +48,6 @@ public class Main {
 				System.out.println("Enter a valid choice!");
 				break;
 			}
-//			System.out.println("Do you want to continue?(y/n)");
-//			c=sc.nextLine().charAt(0);
 		}while(ch!='3');
 		System.out.println("Thank you for visiting RetroCoffee Shop!");
 	}

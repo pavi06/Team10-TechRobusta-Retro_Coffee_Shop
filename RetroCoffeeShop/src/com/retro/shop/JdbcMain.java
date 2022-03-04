@@ -1,6 +1,7 @@
 package com.retro.shop;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,7 +53,7 @@ public class JdbcMain {
 	    int flag=0;
 	    
 	    String query="insert into retro_shop_orders"
-	    		+ " values(seq1.nextval, ?, ?, ?, ?)";
+	    		+ " values(seq1.nextval, ?, ?, ?, ?, ?)";
 		try {
 	         con = DriverManager.getConnection(url, uname, pass);	 	    
 	         pstmt = con.prepareStatement(query);
@@ -60,7 +61,7 @@ public class JdbcMain {
 		     pstmt.setString(2,phno);
 		     pstmt.setString(3,orderItemsCodeList);
 		     pstmt.setFloat(4,totalCost);
-		     //pstmt.setString(5, );
+		     pstmt.setString(5, LocalDate.now().toString());
 	         //pstmt = con.prepareStatement(query);
 	         flag=pstmt.executeUpdate();
 	         pstmt.close();
