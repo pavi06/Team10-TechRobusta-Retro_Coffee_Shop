@@ -9,16 +9,17 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.stream.Stream;
 
 public class JdbcMain {
+	
+	static String url="jdbc:oracle:thin:@localhost:1521:xe";
+	static String uname="hr";
+	static String pass="roke";
 
 	public static Map<Integer,Map<String,Double>> getMenu() throws Exception{		
 		Class.forName("oracle.jdbc.driver.OracleDriver"); //("com.mysql.jdbc.Driver");
-		
-		String url="jdbc:oracle:thin:@localhost:1521:xe"; //"jdbc:mysql://localhost:3306/Retroshop";
-		String uname="hr";
-		String pass="roke";
 		Connection con = null;
 	    PreparedStatement pstmt = null;
 	    ResultSet rst = null;
@@ -50,9 +51,6 @@ public class JdbcMain {
 	public static boolean addOrder(String customerName,String phno,String orderItemsCodeList,float totalCost) throws Exception{		
 		Class.forName("oracle.jdbc.driver.OracleDriver"); //("com.mysql.jdbc.Driver");
 		
-		String url="jdbc:oracle:thin:@localhost:1521:xe"; //"jdbc:mysql://localhost:3306/Retroshop";
-		String uname="hr";
-		String pass="roke";
 		Connection con = null;
 	    PreparedStatement pstmt = null;
 	    ResultSet rst = null;
@@ -86,9 +84,6 @@ public class JdbcMain {
 			e.printStackTrace();
 		} //("com.mysql.jdbc.Driver");
 		
-		String url="jdbc:oracle:thin:@localhost:1521:xe";//"jdbc:mysql://localhost:3306/Retroshop";
-		String uname="hr"; 
-		String pass="roke";
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rst = null;
@@ -129,9 +124,6 @@ public class JdbcMain {
 			e.printStackTrace();
 		} //("com.mysql.jdbc.Driver");
 		
-		String url="jdbc:oracle:thin:@localhost:1521:xe";//"jdbc:mysql://localhost:3306/Retroshop";
-		String uname="hr"; 
-		String pass="roke";
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rst = null;
@@ -163,9 +155,6 @@ public class JdbcMain {
 			e.printStackTrace();
 		} //("com.mysql.jdbc.Driver");
 	
-		String url="jdbc:oracle:thin:@localhost:1521:xe"; //"jdbc:mysql://localhost:3306/Retroshop";
-		String uname="hr";
-		String pass="roke";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rst = null;
@@ -223,4 +212,100 @@ public class JdbcMain {
 			exec.printStackTrace();
 		}
 	}
+	
+	public static void insertItem() {
+		
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} //("com.mysql.jdbc.Driver");
+		
+		Connection con = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rst = null;
+	    
+	    String query4="insert into retro_shop (Item_id,Item_name,Item_price)"
+	    		+"values(seq2.nextval,?,?)";
+	    
+	    Scanner sc=new Scanner(System.in);
+	    System.out.println("Enter the item Name: ");
+	   
+	    String Item_name=sc.nextLine();
+	    System.out.println("Enter the item Price: ");
+	    double Item_price=sc.nextDouble();
+	    
+	    try {
+			con=DriverManager.getConnection(url,uname,pass); 
+			pstmt=con.prepareStatement(query4);
+			pstmt.setString(1, Item_name);
+			pstmt.setDouble(2, Item_price);
+			rst=pstmt.executeQuery();
+			pstmt.close();
+			con.close();
+		}catch(Exception exec){
+			exec.printStackTrace();
+		}
+	    
+	}
+	
+	public static float getGst() {
+		float gst=0.0f;
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} 
+		
+		Connection con = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rst = null;
+	    
+	    String query5="select Gst from retro_shop_config";
+	    try {
+			con=DriverManager.getConnection(url,uname,pass); 
+			pstmt=con.prepareStatement(query5);
+			rst=pstmt.executeQuery();
+			gst=rst.getFloat(1);
+			pstmt.close();
+			con.close();
+		}catch(Exception exec){
+			exec.printStackTrace();
+		}
+	    return gst;
+	} 
+	
+//	public static void setGst(float newGst) {
+//		
+//		System.out.println(newGst);
+//		try {
+//			Class.forName("oracle.jdbc.driver.OracleDriver");
+//		} catch (ClassNotFoundException e) {
+//			e.printStackTrace();
+//		} 
+//		
+//		Connection con = null;
+//	    PreparedStatement pstmt = null;
+//	    ResultSet rst = null;
+//	    int flag=0;
+//	    
+//	    String query5="update retro_shop_config set Gst=?";
+//	    try {
+//			con=DriverManager.getConnection(url,uname,pass); 
+//			pstmt=con.prepareStatement(query5);
+//			pstmt.setFloat(1, newGst);
+//			flag=pstmt.executeUpdate();
+//			pstmt.close();
+//			con.close();
+//		}catch(Exception exec){
+//			exec.printStackTrace();
+//		}
+//	    System.out.println(flag);
+//	    if(flag>0) {
+//	    	System.out.println("GST set successfully!");
+//	    }else {
+//	    	System.out.println("Error in setting GST!");
+//	    }
+//	}
+	
 }

@@ -28,8 +28,9 @@ public class Main {
 
 	public static void main(String[] args) {
 		
+		Main m = new Main();
 		System.out.println("Welcome to Retro Coffee Shop");
-		System.out.println("----MainMenu----\n1.Show Menu\n2.Order Entry\n3.DailySalesReport\n4.Exit");
+		System.out.println("----MainMenu----\n1.Show Menu\n2.Order Entry\n3.DailySalesReport\n4.DataSetup\n5.Exit");
 		char ch,c;
 		Scanner sc = new Scanner(System.in);
 		do {
@@ -51,13 +52,41 @@ public class Main {
 				}
 				break;
 			case '4':
+				System.out.println("--------------DataSetUp--------------\n1.Add item\n2.Add customer\nEnter the Option: ");
+				Scanner sc4=new Scanner(System.in);
+				int n =sc4.nextInt();
+				switch(n) {
+					case 1:
+						JdbcMain.insertItem();
+						break;
+						
+//					case 2:
+//						System.out.println("Enter the gst in percent: ");
+//						float gst = sc4.nextFloat();
+//						JdbcMain.setGst(gst);
+//						break;
+					
+					case 2:
+						System.out.println("Enter the Cutsomer Name: ");
+						String cust_name = sc4.next();
+						System.out.println("Enter the Cutsomer PhoneNumber: ");
+						String cust_phno = sc4.next();
+						float totalCost=0.0f;
+						JdbcMain.addRewards(cust_name, cust_phno, totalCost);
+						break;
+				}
 				break;
+				
+			case '5':
+				System.out.println("Thank you for visiting RetroCoffee Shop!");
+				break;
+				
 			default:
 				System.out.println("Enter a valid choice!");
 				break;
 			}
-		}while(ch!='4');
-		System.out.println("Thank you for visiting RetroCoffee Shop!");
+		}while(ch!='5');
+				
 	}
 
 }
