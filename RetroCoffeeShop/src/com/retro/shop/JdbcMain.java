@@ -261,11 +261,12 @@ public class JdbcMain {
 	    PreparedStatement pstmt = null;
 	    ResultSet rst = null;
 	    
-	    String query5="select Gst from retro_shop_config";
+	    String query5="select * from retro_shop_config";
 	    try {
 			con=DriverManager.getConnection(url,uname,pass); 
 			pstmt=con.prepareStatement(query5);
 			rst=pstmt.executeQuery();
+			rst.next();
 			gst=rst.getFloat(1);
 			pstmt.close();
 			con.close();
@@ -275,37 +276,36 @@ public class JdbcMain {
 	    return gst;
 	} 
 	
-//	public static void setGst(float newGst) {
-//		
-//		System.out.println(newGst);
-//		try {
-//			Class.forName("oracle.jdbc.driver.OracleDriver");
-//		} catch (ClassNotFoundException e) {
-//			e.printStackTrace();
-//		} 
-//		
-//		Connection con = null;
-//	    PreparedStatement pstmt = null;
-//	    ResultSet rst = null;
-//	    int flag=0;
-//	    
-//	    String query5="update retro_shop_config set Gst=?";
-//	    try {
-//			con=DriverManager.getConnection(url,uname,pass); 
-//			pstmt=con.prepareStatement(query5);
-//			pstmt.setFloat(1, newGst);
-//			flag=pstmt.executeUpdate();
-//			pstmt.close();
-//			con.close();
-//		}catch(Exception exec){
-//			exec.printStackTrace();
-//		}
-//	    System.out.println(flag);
-//	    if(flag>0) {
-//	    	System.out.println("GST set successfully!");
-//	    }else {
-//	    	System.out.println("Error in setting GST!");
-//	    }
-//	}
+	public static void setGst(float newGst) {
+		
+		System.out.println(newGst);
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} 
+		
+		Connection con = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rst = null;
+	    int flag=0;
+	    
+	    String query5="update retro_shop_config set Gst=?";
+	    try {
+			con=DriverManager.getConnection(url,uname,pass); 
+			pstmt=con.prepareStatement(query5);
+			pstmt.setFloat(1, newGst);
+			flag=pstmt.executeUpdate();
+			pstmt.close();
+			con.close();
+		}catch(Exception exec){
+			exec.printStackTrace();
+		}
+	    if(flag>0) {
+	    	System.out.println("GST set successfully!");
+	    }else {
+	    	System.out.println("Error in setting GST!");
+	    }
+	}
 	
 }

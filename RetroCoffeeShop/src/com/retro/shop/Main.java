@@ -52,21 +52,21 @@ public class Main {
 				}
 				break;
 			case '4':
-				System.out.println("--------------DataSetUp--------------\n1.Add item\n2.Add customer\nEnter the Option: ");
+				System.out.println("--------------DataSetUp--------------\n1.Add item\n2.Add GST\n3.Add customer\nEnter the Option: ");
 				Scanner sc4=new Scanner(System.in);
 				int n =sc4.nextInt();
 				switch(n) {
 					case 1:
 						JdbcMain.insertItem();
 						break;
-						
-//					case 2:
-//						System.out.println("Enter the gst in percent: ");
-//						float gst = sc4.nextFloat();
-//						JdbcMain.setGst(gst);
-//						break;
 					
 					case 2:
+						System.out.println("Enter the gst in percent: ");
+						float gst = sc4.nextFloat();
+						JdbcMain.setGst(gst);
+						break;
+					
+					case 3:
 						System.out.println("Enter the Cutsomer Name: ");
 						String cust_name = sc4.next();
 						System.out.println("Enter the Cutsomer PhoneNumber: ");

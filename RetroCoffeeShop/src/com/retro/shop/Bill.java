@@ -23,10 +23,10 @@ public class Bill {
 			}
 		}
 
-//		float gst_amount=0.0f;
-//		gst_amount=totalCost*JdbcMain.getGst()/100;
-//		System.out.println();
-//		System.out.format("%23s%10s","Gst Amount:","Rs"+Float.toString(gst_amount));
+		float gst_amount=0.0f;
+		gst_amount=totalCost*JdbcMain.getGst()/100;
+		System.out.println();
+		System.out.format("%23s%10s","Gst Amount:","Rs"+Float.toString(gst_amount));
 		System.out.println();
 		System.out.format("%23s%10s","Total Amount:","Rs"+Float.toString(totalCost));
 		System.out.println();
