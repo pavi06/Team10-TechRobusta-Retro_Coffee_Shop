@@ -228,18 +228,20 @@ public class JdbcMain {
 	    String query4="insert into retro_shop (Item_id,Item_name,Item_price)"
 	    		+"values(seq2.nextval,?,?)";
 	    
+	    Items i1=new Items();
+	    
 	    Scanner sc=new Scanner(System.in);
 	    System.out.println("Enter the item Name: ");
 	   
-	    String Item_name=sc.nextLine();
+	    i1.setItemName(sc.nextLine());
 	    System.out.println("Enter the item Price: ");
-	    double Item_price=sc.nextDouble();
+	    i1.setItemPrice(sc.nextDouble());
 	    
 	    try {
 			con=DriverManager.getConnection(url,uname,pass); 
 			pstmt=con.prepareStatement(query4);
-			pstmt.setString(1, Item_name);
-			pstmt.setDouble(2, Item_price);
+			pstmt.setString(1, i1.getItemName());
+			pstmt.setDouble(2, i1.getItemPrice());
 			rst=pstmt.executeQuery();
 			pstmt.close();
 			con.close();
